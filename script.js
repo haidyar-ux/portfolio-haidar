@@ -1,194 +1,143 @@
 document.addEventListener('DOMContentLoaded', () => {
   /* =========================================
-     1. TYPING ANIMATION (HERO ROLES)
+     1. TOPBAR SCROLL & STEPPING-STONE TRAIL PROGRESS
   ========================================= */
-  const roles = [
-    'Website Programmer',
-    'Software Engineering Student',
-    'UI/UX & Graphic Designer',
-    'Digital Marketing Specialist'
-  ];
-
-  const typingElement = document.getElementById('typingText');
-  let roleIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-
-  function typeEffect() {
-    if (!typingElement) return;
-    const currentRole = roles[roleIndex];
-
-    if (isDeleting) {
-      typingElement.textContent = currentRole.substring(0, charIndex - 1);
-      charIndex--;
-    } else {
-      typingElement.textContent = currentRole.substring(0, charIndex + 1);
-      charIndex++;
-    }
-
-    let speed = isDeleting ? 45 : 85;
-
-    if (!isDeleting && charIndex === currentRole.length) {
-      speed = 1800;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      roleIndex = (roleIndex + 1) % roles.length;
-      speed = 350;
-    }
-
-    setTimeout(typeEffect, speed);
-  }
-  typeEffect();
-
-  /* =========================================
-     2. NAVBAR SCROLL, PROGRESS BAR & ACTIVE LINK
-  ========================================= */
-  const navbar = document.getElementById('navbar');
+  const topbar = document.getElementById('topbar');
   const scrollProgress = document.getElementById('scrollProgress');
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
+  const trailActive = document.getElementById('adventureTrailActive');
 
-  function handleScroll() {
+  let trailLength = 0;
+  if (trailActive && typeof trailActive.getTotalLength === 'function') {
+    trailLength = trailActive.getTotalLength();
+    trailActive.style.strokeDasharray = `${trailLength}`;
+    trailActive.style.strokeDashoffset = `${trailLength}`;
+  }
+
+  function updateScrollEffects() {
     const scrollY = window.scrollY;
-
-    // Navbar background
-    if (scrollY > 40) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-
-    // Top progress bar
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
-    if (scrollProgress) {
-      scrollProgress.style.width = `${progress}%`;
+    const ratio = docHeight > 0 ? Math.min(Math.max(scrollY / docHeight, 0), 1) : 0;
+
+    if (topbar) {
+      topbar.classList.toggle('scrolled', scrollY > 30);
     }
 
-    // Active link highlight
-    sections.forEach((section) => {
-      const top = section.offsetTop - 140;
-      const height = section.offsetHeight;
-      const id = section.getAttribute('id');
+    if (scrollProgress) {
+      scrollProgress.style.width = `${ratio * 100}%`;
+    }
 
-      if (scrollY >= top && scrollY < top + height) {
-        navLinks.forEach((link) => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${id}`) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
+    if (trailActive && trailLength > 0) {
+      trailActive.style.strokeDashoffset = `${trailLength * (1 - ratio)}`;
+    }
   }
 
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  handleScroll();
+  window.addEventListener('scroll', updateScrollEffects, { passive: true });
+  updateScrollEffects();
 
   /* =========================================
-     3. MOBILE NAVIGATION TOGGLE
+     2. HERO "SCROLL DOWN" SIGN CLICK
   ========================================= */
-  const menuToggle = document.getElementById('menuToggle');
-  const navLinksContainer = document.getElementById('navLinks');
-
-  if (menuToggle && navLinksContainer) {
-    menuToggle.addEventListener('click', () => {
-      navLinksContainer.classList.toggle('open');
-      const icon = menuToggle.querySelector('i');
-      icon.classList.toggle('fa-bars');
-      icon.classList.toggle('fa-times');
-    });
-
-    navLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        navLinksContainer.classList.remove('open');
-        const icon = menuToggle.querySelector('i');
-        icon.classList.add('fa-bars');
-        icon.classList.remove('fa-times');
-      });
+  const scrollDownSign = document.getElementById('scrollDownSign');
+  const level01 = document.getElementById('level-01');
+  if (scrollDownSign && level01) {
+    scrollDownSign.addEventListener('click', () => {
+      level01.scrollIntoView({ behavior: 'smooth' });
     });
   }
 
   /* =========================================
-     4. SCROLL REVEAL ANIMATION (INTERSECTION OBSERVER)
+     3. SCROLL REVEAL ANIMATION
   ========================================= */
-  const revealElements = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver(
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
+          observer.unobserve(entry.target);
         }
       });
     },
     { threshold: 0.12 }
   );
-
-  revealElements.forEach((el) => revealObserver.observe(el));
+  reveals.forEach((el) => observer.observe(el));
 
   /* =========================================
-     5. EXPERIENCE CATEGORY FILTER
+     4. INTERACTIVE LEVEL MODALS
   ========================================= */
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const timelineItems = document.querySelectorAll('.timeline-item');
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalTriggers = document.querySelectorAll('[data-modal]');
+  const allModals = document.querySelectorAll('.level-modal');
+  const closeButtons = document.querySelectorAll('.modal-close');
 
-  filterButtons.forEach((btn) => {
+  function openModal(modalId) {
+    const target = document.getElementById(modalId);
+    if (!target || !modalBackdrop) return;
+
+    allModals.forEach((m) => m.classList.remove('active'));
+    target.classList.add('active');
+    modalBackdrop.classList.add('open');
+    modalBackdrop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAllModals() {
+    if (!modalBackdrop) return;
+    modalBackdrop.classList.remove('open');
+    modalBackdrop.setAttribute('aria-hidden', 'true');
+    allModals.forEach((m) => m.classList.remove('active'));
+    document.body.style.overflow = '';
+  }
+
+  modalTriggers.forEach((btn) => {
     btn.addEventListener('click', () => {
-      filterButtons.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
+      const id = btn.getAttribute('data-modal');
+      openModal(id);
+    });
+  });
 
-      const filterValue = btn.getAttribute('data-filter');
+  closeButtons.forEach((btn) => {
+    btn.addEventListener('click', closeAllModals);
+  });
 
-      timelineItems.forEach((item) => {
-        const categories = item.getAttribute('data-category') || '';
-        if (filterValue === 'all' || categories.includes(filterValue)) {
-          item.classList.remove('hidden');
-        } else {
-          item.classList.add('hidden');
-        }
-      });
+  if (modalBackdrop) {
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) closeAllModals();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAllModals();
+  });
+
+  /* =========================================
+     5. INTERACTIVE ADVENTURE MAP STAGES
+  ========================================= */
+  const stageDescriptions = {
+    idea: '<strong>Tahap 1 — Idea & Research:</strong> Riset data produk, analisis kebutuhan pengguna, dan perumusan struktur solusi digital.',
+    design: '<strong>Tahap 2 — UI/UX & Graphic Design:</strong> Perancangan wireframe, antarmuka modern, serta aset visual dengan Figma, CorelDRAW, dan Canva.',
+    here: '<strong>Posisi Saat Ini:</strong> Siap berkolaborasi membangun website interaktif, sistem perangkat lunak, maupun kampanye digital untuk bisnis Anda.',
+    develop: '<strong>Tahap 4 — Develop & Test:</strong> Pengkodean bersih menggunakan HTML, CSS, JavaScript, serta pengujian responsivitas lintas perangkat.',
+    launch: '<strong>Tahap 5 — Launch & Grow:</strong> Publikasi ke GitHub/hosting, optimasi SEO, dan akselerasi konversi melalui strategi Digital Marketing.'
+  };
+
+  const mapStages = document.querySelectorAll('.map-stage');
+  const stageDetailText = document.getElementById('stageDetailText');
+
+  mapStages.forEach((stageBtn) => {
+    stageBtn.addEventListener('click', () => {
+      mapStages.forEach((s) => s.classList.remove('active'));
+      stageBtn.classList.add('active');
+
+      const key = stageBtn.getAttribute('data-stage');
+      if (stageDetailText && stageDescriptions[key]) {
+        stageDetailText.innerHTML = stageDescriptions[key];
+      }
     });
   });
 
   /* =========================================
-     6. INTERACTIVE 3D TILT CARD & CURSOR GLOW
-  ========================================= */
-  const cursorGlow = document.getElementById('cursorGlow');
-  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-
-  if (!isTouchDevice) {
-    window.addEventListener('mousemove', (e) => {
-      if (cursorGlow) {
-        cursorGlow.style.left = `${e.clientX}px`;
-        cursorGlow.style.top = `${e.clientY}px`;
-      }
-    });
-
-    const tiltCards = document.querySelectorAll('.tilt-card');
-    tiltCards.forEach((card) => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = ((y - centerY) / centerY) * -4;
-        const rotateY = ((x - centerX) / centerX) * 4;
-
-        card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
-      });
-    });
-  }
-
-  /* =========================================
-     7. COPY EMAIL TO CLIPBOARD + TOAST
+     6. COPY EMAIL TO CLIPBOARD
   ========================================= */
   const copyEmailBtn = document.getElementById('copyEmailBtn');
   const toast = document.getElementById('toast');
@@ -199,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         await navigator.clipboard.writeText(email);
         toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
+        setTimeout(() => toast.classList.remove('show'), 2800);
       } catch {
         window.location.href = `mailto:${email}`;
       }
@@ -207,108 +156,66 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =========================================
-     8. HERO PARTICLE CONSTELLATION CANVAS
+     7. DAYTIME SUNLIT SPARKLE PARTICLES
   ========================================= */
-  const canvas = document.getElementById('particleCanvas');
+  const canvas = document.getElementById('skyParticles');
   if (canvas) {
     const ctx = canvas.getContext('2d');
-    let particles = [];
-    const mouse = { x: null, y: null, radius: 130 };
+    let motes = [];
 
-    function resizeCanvas() {
+    function resizeSky() {
       canvas.width = canvas.parentElement.offsetWidth;
       canvas.height = canvas.parentElement.offsetHeight;
     }
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+    window.addEventListener('resize', resizeSky);
+    resizeSky();
 
-    window.addEventListener('mousemove', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    });
-
-    class Particle {
+    class SunMote {
       constructor() {
+        this.reset();
+      }
+
+      reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2.2 + 0.8;
-        this.speedX = (Math.random() - 0.5) * 0.65;
-        this.speedY = (Math.random() - 0.5) * 0.65;
-        this.color = Math.random() > 0.5 ? 'rgba(96, 165, 250, 0.7)' : 'rgba(168, 85, 247, 0.7)';
+        this.radius = Math.random() * 2.6 + 1;
+        this.vy = -(Math.random() * 0.35 + 0.12);
+        this.vx = (Math.random() - 0.5) * 0.25;
+        this.alpha = Math.random() * 0.55 + 0.25;
       }
 
       update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.y < 0) {
+          this.y = canvas.height;
+          this.x = Math.random() * canvas.width;
+        }
       }
 
       draw() {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
         ctx.fill();
       }
     }
 
-    function initParticles() {
-      particles = [];
-      const count = Math.min(Math.floor((canvas.width * canvas.height) / 14000), 85);
-      for (let i = 0; i < count; i++) {
-        particles.push(new Particle());
-      }
+    const count = Math.min(Math.floor(canvas.width / 24), 45);
+    for (let i = 0; i < count; i++) {
+      motes.push(new SunMote());
     }
 
-    function connectParticles() {
-      for (let a = 0; a < particles.length; a++) {
-        for (let b = a + 1; b < particles.length; b++) {
-          const dx = particles[a].x - particles[b].x;
-          const dy = particles[a].y - particles[b].y;
-          const dist = Math.hypot(dx, dy);
-
-          if (dist < 120) {
-            ctx.strokeStyle = `rgba(139, 92, 246, ${0.18 * (1 - dist / 120)})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particles[a].x, particles[a].y);
-            ctx.lineTo(particles[b].x, particles[b].y);
-            ctx.stroke();
-          }
-        }
-
-        if (mouse.x !== null && mouse.y !== null) {
-          const mdx = particles[a].x - mouse.x;
-          const mdy = particles[a].y - mouse.y;
-          const mDist = Math.hypot(mdx, mdy);
-
-          if (mDist < mouse.radius) {
-            ctx.strokeStyle = `rgba(56, 189, 248, ${0.35 * (1 - mDist / mouse.radius)})`;
-            ctx.lineWidth = 1.2;
-            ctx.beginPath();
-            ctx.moveTo(particles[a].x, particles[a].y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    function animateCanvas() {
+    function animateSky() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
+      motes.forEach((m) => {
+        m.update();
+        m.draw();
       });
-      connectParticles();
-      requestAnimationFrame(animateCanvas);
+      requestAnimationFrame(animateSky);
     }
 
-    initParticles();
-    animateCanvas();
-    window.addEventListener('resize', initParticles);
+    animateSky();
   }
 });
