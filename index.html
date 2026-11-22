@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haidar Al-Huwaidi | Website Programmer & Digital Specialist</title>
+  <meta name="description" content="Portofolio resmi Haidar Al-Huwaidi - Website Programmer, Mahasiswa Teknik Rekayasa Perangkat Lunak, UI/UX Designer, dan Digital Marketing Specialist." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Cursor Glow Effect -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Ambient Background Orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <!-- Navigation -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#home" class="logo">
+        <span class="logo-bracket">&lt;</span>Haidar<span class="logo-dot">.dev</span><span class="logo-bracket">/&gt;</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="nav-link active">Beranda</a>
+        <a href="#about" class="nav-link">Tentang</a>
+        <a href="#experience" class="nav-link">Pengalaman</a>
+        <a href="#skills" class="nav-link">Keahlian</a>
+        <a href="#education" class="nav-link">Pendidikan</a>
+        <a href="#contact" class="nav-link nav-cta">Kontak</a>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Buka menu navigasi">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <canvas id="particleCanvas"></canvas>
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <div class="status-badge">
+            <span class="pulse-dot"></span>
+            Tersedia untuk Proyek Web & Kolaborasi Digital
+          </div>
+
+          <h1 class="hero-title">
+            Halo, Saya <br />
+            <span class="gradient-text">Haidar Al-Huwaidi</span>
+          </h1>
+
+          <div class="typing-wrapper">
+            <span class="code-prefix">const role = "</span>
+            <span id="typingText" class="typing-text"></span>
+            <span class="cursor-bar">|</span>
+            <span class="code-prefix">";</span>
+          </div>
+
+          <p class="hero-description">
+            Mahasiswa <strong>Teknik Rekayasa Perangkat Lunak (IPK 4.0)</strong> dengan pengalaman
+            <em>end-to-end</em> dalam pengembangan web, desain UI/UX, administrasi jaringan, serta strategi
+            <strong>Digital Marketing</strong> berbasis data yang terukur dan berdampak pada konversi bisnis.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#experience" class="btn btn-primary">
+              <span>Lihat Pengalaman</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="https://wa.me/6283821064999" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <i class="fab fa-whatsapp"></i>
+              <span>Hubungi WhatsApp</span>
+            </a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <span class="metric-value">4.00</span>
+              <span class="metric-label">IPK Semester 1 TRPL</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-value">9+</span>
+              <span class="metric-label">Brand Online Shop</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-value">2026</span>
+              <span class="metric-label">Ketua Projek Neura Box AI</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="profile-card tilt-card">
+            <div class="card-glow"></div>
+            <div class="code-window-header">
+              <div class="window-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="window-title">haidar_profile.json</span>
+            </div>
+
+            <div class="avatar-box">
+              <!-- Ganti blok avatar-monogram di bawah dengan <img src="foto.jpg" alt="Haidar Al-Huwaidi"> jika ingin memakai foto -->
+              <div class="avatar-ring">
+                <div class="avatar-monogram">HA</div>
+              </div>
+              <div class="verified-chip">
+                <i class="fas fa-code"></i> Website Programmer
+              </div>
+            </div>
+
+            <pre class="code-snippet"><code>{
+  <span class="key">"nama"</span>: <span class="str">"Haidar Al-Huwaidi"</span>,
+  <span class="key">"lokasi"</span>: <span class="str">"Surakarta, Jawa Tengah"</span>,
+  <span class="key">"fokus"</span>: [
+    <span class="str">"Web Programming"</span>,
+    <span class="str">"UI/UX &amp; Graphic Design"</span>,
+    <span class="str">"Digital Marketing &amp; SEO"</span>
+  ],
+  <span class="key">"projekUnggulan"</span>: <span class="str">"Neura Box AI (2026)"</span>
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">01 // PROFIL SINGKAT</span>
+          <h2 class="section-title">Menggabungkan <span class="gradient-text">Logika Kode</span> & Strategi Visual</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="glass-card about-main reveal">
+            <p>
+              Saya merupakan pengembang web dan spesialis digital yang berdomisili di <strong>Banjarsari, Kota Surakarta</strong>.
+              Berbekal latar belakang pendidikan di bidang <strong>Teknik Rekayasa Perangkat Lunak</strong> serta
+              <strong>Teknik Komputer Jaringan dan Telekomunikasi</strong>, saya terbiasa membangun solusi digital
+              yang fungsional, responsif, dan terstruktur.
+            </p>
+            <p>
+              Selain pengembangan teknis, pengalaman profesional saya di <strong>CV Qisahku Karya Mandiri</strong> dan
+              <strong>Airlink Zakynet</strong> membentuk kemampuan eksekusi <em>end-to-end</em>—mulai dari riset pasar,
+              perancangan identitas visual (Figma, CorelDRAW, Canva), optimasi SEO, hingga manajemen infrastruktur jaringan.
+            </p>
+
+            <div class="info-pills">
+              <div class="info-pill">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Ngipang, Kadipiro, Banjarsari, Surakarta</span>
+              </div>
+              <div class="info-pill">
+                <i class="fas fa-envelope"></i>
+                <span>alhuwaidihaidar@gmail.com</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-highlights reveal">
+            <div class="glass-card highlight-box tilt-card">
+              <div class="icon-box blue">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+              <h3>Web & Software Engineering</h3>
+              <p>Membangun antarmuka website modern, interaktif, dan terstruktur dengan standar pengembangan perangkat lunak terkini.</p>
+            </div>
+
+            <div class="glass-card highlight-box tilt-card">
+              <div class="icon-box purple">
+                <i class="fas fa-bezier-curve"></i>
+              </div>
+              <h3>UI/UX & Brand Identity</h3>
+              <p>Berpengalaman merancang logo, banner promosi, dan tata letak visual untuk berbagai klien di Solo, Jakarta, dan Surabaya.</p>
+            </div>
+
+            <div class="glass-card highlight-box tilt-card">
+              <div class="icon-box indigo">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3>Data-Driven Marketing</h3>
+              <p>Eksekusi kampanye Meta Ads, SEO, copywriting, dan analitik performa untuk meningkatkan konversi penjualan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">02 // REKAM JEJAK</span>
+          <h2 class="section-title">Pengalaman <span class="gradient-text">Profesional</span></h2>
+          <p class="section-subtitle">Filter kategori di bawah untuk melihat fokus kontribusi di setiap peran.</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-bar reveal">
+          <button class="filter-btn active" data-filter="all">Semua Pengalaman</button>
+          <button class="filter-btn" data-filter="tech">IT & Jaringan</button>
+          <button class="filter-btn" data-filter="design">Graphic Design</button>
+          <button class="filter-btn" data-filter="marketing">Digital Marketing</button>
+        </div>
+
+        <div class="timeline">
+          <!-- Experience 1 -->
+          <article class="timeline-item reveal" data-category="tech design">
+            <div class="timeline-marker"></div>
+            <div class="glass-card timeline-card tilt-card">
+              <div class="timeline-top">
+                <div>
+                  <span class="timeline-date">Mei 2026 – Oktober 2026</span>
+                  <h3 class="timeline-company">Airlink Zakynet</h3>
+                </div>
+                <div class="role-badges">
+                  <span class="badge blue">IT Support & FTTH</span>
+                  <span class="badge purple">Graphic Designer</span>
+                  <span class="badge indigo">Admin & CS</span>
+                </div>
+              </div>
+
+              <div class="exp-columns">
+                <div class="exp-group">
+                  <h4><i class="fas fa-network-wired"></i> IT Support & Teknisi Jaringan FTTH</h4>
+                  <ul>
+                    <li>Manajemen jaringan, telekomunikasi, dan aktivasi jaringan internet WiFi.</li>
+                    <li>Instalasi WiFi pelanggan serta penarikan kabel fiber optik <em>outdoor</em> dan <em>indoor</em>.</li>
+                    <li>Troubleshooting kendala teknis dan komplain koneksi pelanggan.</li>
+                  </ul>
+                </div>
+
+                <div class="exp-group">
+                  <h4><i class="fas fa-pen-nib"></i> Graphic Designer & Admin CS</h4>
+                  <ul>
+                    <li>Merancang logo, branding perusahaan, banner promosi, dan flyer layanan WiFi.</li>
+                    <li>Mengelola pendataan pelanggan, input pembayaran, serta penanganan problem customer.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Experience 2 -->
+          <article class="timeline-item reveal" data-category="design marketing">
+            <div class="timeline-marker"></div>
+            <div class="glass-card timeline-card tilt-card">
+              <div class="timeline-top">
+                <div>
+                  <span class="timeline-date">Mei 2025 – April 2026</span>
+                  <h3 class="timeline-company">CV Qisahku Karya Mandiri</h3>
+                </div>
+                <div class="role-badges">
+                  <span class="badge purple">Graphic Designer</span>
+                  <span class="badge blue">Digital Marketing</span>
+                  <span class="badge indigo">Content & Live Host</span>
+                </div>
+              </div>
+
+              <div class="exp-columns">
+                <div class="exp-group">
+                  <h4><i class="fas fa-palette"></i> Graphic Designer</h4>
+                  <ul>
+                    <li>Mendesain logo visual untuk 9 toko online shop di Solo, Jakarta, dan Surabaya.</li>
+                    <li>Membuat desain banner promosi dan cover produk online shop berorientasi konversi.</li>
+                  </ul>
+                </div>
+
+                <div class="exp-group">
+                  <h4><i class="fas fa-bullhorn"></i> Digital Marketing & TikTok Management</h4>
+                  <ul>
+                    <li>Merancang kampanye promosi menerapkan konsep <strong>Marketing 6.0</strong>, riset data, dan optimasi produk.</li>
+                    <li>Menyusun alur konten TikTok, copywriting skrip talent, analitik performa, serta host live streaming TikTok & Shopee.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Experience 3 -->
+          <article class="timeline-item reveal" data-category="marketing">
+            <div class="timeline-marker"></div>
+            <div class="glass-card timeline-card tilt-card">
+              <div class="timeline-top">
+                <div>
+                  <span class="timeline-date">Independen / Proyek Aktif</span>
+                  <h3 class="timeline-company">Digital Marketer Facebook & Meta Ads</h3>
+                </div>
+                <div class="role-badges">
+                  <span class="badge blue">Meta Ads</span>
+                  <span class="badge purple">SEO & Copywriting</span>
+                </div>
+              </div>
+
+              <div class="exp-group">
+                <ul>
+                  <li>Mengelola kampanye promosi produk jualan pribadi melalui ekosistem Facebook & Meta Ads.</li>
+                  <li>Melakukan analisis metrik performa iklan, evaluasi efektivitas promosi, serta optimasi SEO dan copywriting.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">03 // KOMPETENSI</span>
+          <h2 class="section-title">Keahlian <span class="gradient-text">Teknis & Profesional</span></h2>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Hard Skills -->
+          <div class="glass-card skill-panel reveal">
+            <div class="panel-header">
+              <i class="fas fa-terminal"></i>
+              <h3>Hard Skills & Tools</h3>
+            </div>
+
+            <div class="skill-bars">
+              <div class="skill-bar-item">
+                <div class="skill-info">
+                  <span>Web Programming (HTML5, CSS3, JavaScript)</span>
+                  <span>90%</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width: 90%"></div>
+                </div>
+              </div>
+
+              <div class="skill-bar-item">
+                <div class="skill-info">
+                  <span>Design Tools (CorelDRAW, Canva, Figma Dasar)</span>
+                  <span>92%</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width: 92%"></div>
+                </div>
+              </div>
+
+              <div class="skill-bar-item">
+                <div class="skill-info">
+                  <span>IT Networking & Network Engineering (FTTH)</span>
+                  <span>88%</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width: 88%"></div>
+                </div>
+              </div>
+
+              <div class="skill-bar-item">
+                <div class="skill-info">
+                  <span>Meta Ads, SEO & Digital Analytics</span>
+                  <span>87%</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width: 87%"></div>
+                </div>
+              </div>
+
+              <div class="skill-bar-item">
+                <div class="skill-info">
+                  <span>Microsoft Office & Administrasi Data</span>
+                  <span>90%</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Soft Skills & Tech Stack Tags -->
+          <div class="glass-card skill-panel reveal">
+            <div class="panel-header">
+              <i class="fas fa-user-check"></i>
+              <h3>Soft Skills & Karakter Kerja</h3>
+            </div>
+
+            <div class="soft-skills-list">
+              <div class="soft-skill-card">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                  <h4>Jujur & Amanah</h4>
+                  <p>Menjaga integritas data, transaksi, dan kepercayaan tim maupun klien.</p>
+                </div>
+              </div>
+
+              <div class="soft-skill-card">
+                <i class="fas fa-bolt"></i>
+                <div>
+                  <h4>Cekatan & Cepat Beradaptasi</h4>
+                  <p>Sigap mempelajari teknologi baru dan menyesuaikan ritme kerja lintas divisi.</p>
+                </div>
+              </div>
+
+              <div class="soft-skill-card">
+                <i class="fas fa-tasks"></i>
+                <div>
+                  <h4>Disiplin & Bertanggung Jawab</h4>
+                  <p>Konsisten menuntaskan target proyek tepat waktu dengan hasil terukur.</p>
+                </div>
+              </div>
+
+              <div class="soft-skill-card">
+                <i class="fas fa-lightbulb"></i>
+                <div>
+                  <h4>Kreatif & Inovatif</h4>
+                  <p>Menggabungkan pendekatan visual modern dengan solusi teknis yang efisien.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education & Certifications Section -->
+    <section id="education" class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">04 // AKADEMIK & PENCAPAIAN</span>
+          <h2 class="section-title">Pendidikan & <span class="gradient-text">Sertifikasi</span></h2>
+        </div>
+
+        <div class="edu-cert-grid">
+          <!-- Education Column -->
+          <div class="edu-column reveal">
+            <h3 class="sub-heading"><i class="fas fa-graduation-cap"></i> Riwayat Pendidikan</h3>
+
+            <div class="glass-card edu-card tilt-card">
+              <span class="edu-year">2025 – Saat Ini</span>
+              <h4>Politeknik Indonusa Surakarta</h4>
+              <p class="edu-major">Teknik Rekayasa Perangkat Lunak</p>
+              <div class="gpa-badge">
+                <i class="fas fa-star"></i> IPK Semester 1 = 4.0
+              </div>
+            </div>
+
+            <div class="glass-card edu-card tilt-card">
+              <span class="edu-year">2022 – 2025</span>
+              <h4>SMK IT Smart Informatika</h4>
+              <p class="edu-major">Teknik Komputer Jaringan dan Telekomunikasi</p>
+            </div>
+          </div>
+
+          <!-- Certifications Column -->
+          <div class="cert-column reveal">
+            <h3 class="sub-heading"><i class="fas fa-award"></i> Sertifikasi & Penghargaan</h3>
+
+            <div class="cert-list">
+              <div class="glass-card cert-item tilt-card">
+                <div class="cert-year">2026</div>
+                <div class="cert-body">
+                  <h4>Ketua Projek Neura Box AI</h4>
+                  <p>Memimpin pengembangan dan eksekusi proyek berbasis kecerdasan buatan.</p>
+                </div>
+              </div>
+
+              <div class="glass-card cert-item tilt-card">
+                <div class="cert-year">2026</div>
+                <div class="cert-body">
+                  <h4>Computer Hardware Basic</h4>
+                  <p>Sertifikasi kompetensi perangkat keras komputer oleh <strong>Cisco Network</strong>.</p>
+                </div>
+              </div>
+
+              <div class="glass-card cert-item tilt-card">
+                <div class="cert-year">2025</div>
+                <div class="cert-body">
+                  <h4>Juara Harapan 2 Lomba LKS Graphic Design</h4>
+                  <p>Kompetisi Lomba Kompetensi Siswa Tingkat Kota Surakarta.</p>
+                </div>
+              </div>
+
+              <div class="glass-card cert-item tilt-card">
+                <div class="cert-year">2024</div>
+                <div class="cert-body">
+                  <h4>Praktik Kerja Lapangan (PKL)</h4>
+                  <p>Menyelesaikan program praktik industri di <strong>PT Power Telecom</strong>.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="glass-card contact-box reveal">
+          <span class="section-tag">05 // MARI TERHUBUNG</span>
+          <h2 class="section-title">Siap Membangun <span class="gradient-text">Website Impian Anda?</span></h2>
+          <p class="contact-desc">
+            Hubungi saya untuk diskusi pengembangan website, kolaborasi proyek perangkat lunak, maupun kebutuhan branding digital.
+          </p>
+
+          <div class="contact-cards">
+            <a href="https://wa.me/6283821064999" target="_blank" rel="noopener noreferrer" class="contact-method">
+              <i class="fab fa-whatsapp"></i>
+              <div>
+                <span>WhatsApp / Telepon</span>
+                <strong>0838-2106-4999</strong>
+              </div>
+            </a>
+
+            <button type="button" class="contact-method" id="copyEmailBtn" data-email="alhuwaidihaidar@gmail.com">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <span>Email (Klik untuk Salin)</span>
+                <strong>alhuwaidihaidar@gmail.com</strong>
+              </div>
+            </button>
+
+            <div class="contact-method">
+              <i class="fas fa-map-pin"></i>
+              <div>
+                <span>Domisili</span>
+                <strong>Ngipang, Kadipiro, Banjarsari, Surakarta</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span>Alamat email berhasil disalin ke clipboard!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 <strong>Haidar Al-Huwaidi</strong>. Dibangun dengan HTML, CSS & JavaScript.</p>
+      <a href="#home" class="back-to-top" aria-label="Kembali ke atas">
+        <i class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Custom JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
